@@ -33,7 +33,7 @@
             <br/>
             <input type='button' value='Sum'  onclick="sumIt()" />
             <input type='button' value='Average' onclick="averageIt()" />
-            <input type='button' value='Find Min'  />
+            <input type='button' value='Find Min' onclick="minIt()" />
 
         </div>
 
@@ -60,13 +60,74 @@
         <input type='button' value='refresh list'  />
     </fieldset>
 
-	<script type = 'text/javascript'>
+    <script type = 'text/javascript'>
+        let numbers = [];
+        let consoleData = document.getElementById('console');
+        let displayedData = document.getElementById('numberList');
+
+        function clearDis(){
+            consoleData.innerHTML='';
+            displayedData.innerHTML='';
+        }
+
+        function resetCal(){
+            clearDis();
+            numbers = [];            
+        }
+
 		function addList(){
-			var ans;
-			ans=Number(document.getElementById('number').value);
-			currentList= document.getElementById('numberList');
-			currentList.innerHTML += ans + "<br/>"
-		}
+			let numb=document.getElementById('number').value;
+            if(!isNaN(numb)){
+                
+                numbers.push(+numb);
+                displayedData.innerHTML+=`<li>${numb}</li>`;
+            } else {
+                consoleData.innerHTML+=`<p>Invalid Number</p>`;
+            }
+        }
+        
+        function sumIt(){
+            let ans = 0;
+            for(let number of numbers)
+                ans+=number;
+            
+            consoleData.innerHTML+= `<p> Sum = ${ans}</p>`;
+        }
+
+        function averageIt(){
+            if(numbers.length == 0){
+                consoleData.innerHTML+= `<p>Numbers list is empty</p>`;
+                return null;
+            }
+
+            let ans = 0;
+            for(let number of numbers){
+
+                ans+=number;
+            }
+            ans = ans/numbers.length;
+            
+            consoleData.innerHTML+= `<p> Average = ${ans}</p>`;
+            
+        }
+
+        function minIt(){
+            if(numbers.length == 0){
+                consoleData.innerHTML+= `<p>Numbers list is empty</p>`;
+                return null;
+            }
+
+            let ans = 10000000;
+            for (let number of numbers){
+
+                if (number < ans)
+                    ans = number;
+            }
+            consoleData.innerHTML+= `<p> Minimum one = ${ans}</p>`;
+
+        }
+        
+
 	</script>
 	
    
